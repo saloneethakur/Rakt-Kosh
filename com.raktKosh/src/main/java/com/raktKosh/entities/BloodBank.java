@@ -26,7 +26,7 @@ public class BloodBank {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bankk_id")
+    @Column(name = "bank_id")
     private Long bankId;
 
     @Column(nullable = false)
