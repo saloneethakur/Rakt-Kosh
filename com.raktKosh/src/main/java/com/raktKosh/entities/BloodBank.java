@@ -39,7 +39,7 @@ public class BloodBank {
     private String phone;
 
     @Column(name = "active_status", nullable = false)
-    private boolean activeStatus;
+    private boolean activeStatus ;
 
     @ManyToOne
     @JoinColumn(name = "user", nullable = false)
@@ -47,4 +47,15 @@ public class BloodBank {
     
     @ManyToMany(mappedBy="banks")
  	private Set<Donor> donors = new HashSet<Donor>();
+
+	public BloodBank(String name, String address, String phone, boolean activeStatus, User user) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.activeStatus = activeStatus;
+		this.user = user;
+	}
+    
+    
 }
