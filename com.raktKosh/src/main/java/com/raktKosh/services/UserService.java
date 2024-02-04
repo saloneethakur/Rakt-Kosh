@@ -1,5 +1,7 @@
 package com.raktKosh.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,9 +32,17 @@ public class UserService implements UserDetailsService {
 
 	public User saveUser(String email, String password,String role) 
 	{
-		User user = new User(email, password, role, true);
+		User user = new User(email, password, role, false);
 		user = userRepo.save(user);
 		return user;
+	}
+	public Optional<User> findByEmail(String email) 
+	{
+		return userRepo.findByEmail(email);
+	}
+	
+	public void update(User user) {
+		userRepo.save(user);		
 	}
 
 }

@@ -23,6 +23,9 @@ public class BloodBankService {
 	private  UserService userService;
 	
 	@Autowired
+	private  MailService mailService;
+	
+	@Autowired
 	private  BloodBankRepo bankrepo;
 	
 	public  ApiResponse saveBank(BloodBankModel model) {
@@ -34,6 +37,8 @@ public class BloodBankService {
 			BloodBank obj = new BloodBank(model.getName(),model.getAddress(),model.getPhone(),false,user);
 			
 			bankrepo.save(obj);
+			
+			mailService.verificationMail(model.getEmail(), model.getName());
 			
 			response = new ApiResponse(true, "bank Saved !");
 		}catch(Exception ex) {

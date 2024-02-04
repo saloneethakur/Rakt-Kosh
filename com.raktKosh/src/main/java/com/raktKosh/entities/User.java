@@ -98,5 +98,7 @@ public class User implements UserDetails
 		this.role = role;
 		this.activeStatus = activeStatus;
 	}
+
+	
 	
 }
