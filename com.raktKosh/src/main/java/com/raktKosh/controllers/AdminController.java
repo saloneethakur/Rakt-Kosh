@@ -13,14 +13,14 @@ import com.raktKosh.utils.ApiResponse;
 
 
 @RestController
-@RequestMapping("/web")
+@RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired
 	private BloodBankService bankservice;
 	
 	@PostMapping("/save_BloodBank")
-	public ApiResponse saveRecp(@RequestBody BloodBankModel model) 
+	public ApiResponse savebank(@RequestBody BloodBankModel model) 
 	{
 		ApiResponse response =  bankservice.saveBank(model);
 		return response;

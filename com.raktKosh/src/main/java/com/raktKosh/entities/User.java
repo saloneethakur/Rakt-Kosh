@@ -17,6 +17,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,13 +36,17 @@ public class User implements UserDetails
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 @Column(name = "user_id")
     private Long userId;
-
+	
+	@NotEmpty
+	@Email
     @Column(nullable = false, unique = true)
     private String email;
 
+	@NotEmpty
     @Column(nullable = false)
     private String password;
 
+	@NotEmpty
     @Column(nullable = false)
     private String role;
 
