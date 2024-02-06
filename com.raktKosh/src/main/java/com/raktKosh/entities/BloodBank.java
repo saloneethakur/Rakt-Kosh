@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +45,7 @@ public class BloodBank {
 
     @ManyToOne
     @JoinColumn(name = "user", nullable = false)
+    @JsonIgnore
     private User user;
     
     @ManyToMany(mappedBy="banks")

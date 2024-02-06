@@ -76,6 +76,7 @@ public class WebController
 			User user = op.get();
 			user.setActiveStatus(true);
 			userService.update(user);
+			
 			return new ApiResponse(true, "Account Activated !");
 		}else {
 			return new ApiResponse(false, "Wrong Email !");

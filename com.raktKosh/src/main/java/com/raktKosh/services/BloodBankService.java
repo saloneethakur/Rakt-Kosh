@@ -48,4 +48,9 @@ public class BloodBankService {
 		return response;
 	}
 
+	public BloodBank getBankById(User user) 
+	{
+		return bankrepo.findByUser(user).get();
+	}
+
 }

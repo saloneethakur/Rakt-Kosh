@@ -34,6 +34,4 @@ public class DonorModel {
     private String type;
     private String email;
 	private String password;
-    private Set<BloodBank> banks;  
-
 }
