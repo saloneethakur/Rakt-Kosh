@@ -5,7 +5,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,4 +49,21 @@ public class BloodBankController
 		
 		return new ApiResponse(true,"Blood Bank Details", bank);
 	}
+	
+	@PutMapping("/assign/{bankId}/donor/{donorId}")
+	private BloodBank assignDonorToBloodBank(@PathVariable Long bankId,@PathVariable Long donorId)
+	{
+		return bloodbankService.assignDonorToBloodBank(bankId,donorId);
+	}
+	
+	
+	
+	
+	
+	@PutMapping("/{donorId}/bank/{bankId}")
+	private Donor assignBloodBanktoDonor(@PathVariable Long donorId,@PathVariable Long bankId)
+	{
+		return donorService.assignBloodBanktoDonor(donorId,bankId);
+	}
+	
 }

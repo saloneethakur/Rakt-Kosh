@@ -1,6 +1,9 @@
 package com.raktKosh.services;
 
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,9 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.raktKosh.entities.BloodBank;
+import com.raktKosh.entities.Donor;
 import com.raktKosh.entities.User;
 import com.raktKosh.model.BloodBankModel;
 import com.raktKosh.repositories.BloodBankRepo;
+import com.raktKosh.repositories.DonorRepo;
 import com.raktKosh.utils.ApiResponse;
 
 @Service
@@ -27,6 +32,11 @@ public class BloodBankService {
 	
 	@Autowired
 	private  BloodBankRepo bankrepo;
+	
+	
+	
+	@Autowired
+	private  DonorRepo donorrepo;
 	
 	public  ApiResponse saveBank(BloodBankModel model) {
 		ApiResponse response = null;
@@ -52,5 +62,24 @@ public class BloodBankService {
 	{
 		return bankrepo.findByUser(user).get();
 	}
+	
+public BloodBank assignDonorToBloodBank(Long bankId, Long donorId) {
+		
+		Set<Donor> donorSet = null;
+		BloodBank bank = bankrepo.findById(bankId).get();
+		Donor donor = donorrepo.findById(donorId).get();
+		donorSet = bank.getDonors();
+		donorSet.add(donor);
+		bank.setDonors(donorSet);
+		 bankrepo.save(bank);
+		 return bank;
+		
+		
+	}
+
+public List<BloodBank> listAll() {
+	return bankrepo.findAll();
+}
+
 
 }

@@ -1,11 +1,15 @@
 package com.raktKosh.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.raktKosh.entities.BloodBank;
 import com.raktKosh.model.BloodBankModel;
 import com.raktKosh.services.BloodBankService;
 import com.raktKosh.utils.ApiResponse;
@@ -24,5 +28,13 @@ public class AdminController {
 	{
 		ApiResponse response =  bankservice.saveBank(model);
 		return response;
+	}
+	
+	@GetMapping("/list_banks")
+	public ApiResponse getPatientList() 
+	{
+		List<BloodBank> list = bankservice.listAll();
+		
+		return new ApiResponse(true,"Patient Records",list);
 	}
 }
