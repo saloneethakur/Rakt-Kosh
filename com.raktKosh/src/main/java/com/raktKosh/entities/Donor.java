@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Donor")
 public class Donor {
-	
+	//Validation Remaining
 
     public Donor(String name, String phone, String address, String gender, LocalDate dob, String bloodGroup,
 			String aadharCard, LocalDate lastDonateDate, String type, User user,Boolean active_status) {
