@@ -64,7 +64,8 @@ public class BloodBankController
 	{
 		Object priniciple = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		final User USER = (User)priniciple;
-	Long	bankId = USER.getUserId();
+		BloodBank bank =  bloodbankService.getBankById(USER);
+	Long	bankId = bank.getBankId();
 		ApiResponse obj = donorService.assignBloodBanktoDonor(donorId,bankId);
 		 return new ApiResponse(true,"Blood Bank Details", obj);
 	}
