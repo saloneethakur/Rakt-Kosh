@@ -6,7 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +23,7 @@ import com.raktKosh.entities.Donor;
 import com.raktKosh.entities.User;
 import com.raktKosh.model.LoginModel;
 import com.raktKosh.model.LoginResponseModel;
+import com.raktKosh.model.UpdatePasswordModel;
 import com.raktKosh.services.BloodBankService;
 import com.raktKosh.services.DonorService;
 import com.raktKosh.services.MailService;
@@ -41,7 +45,8 @@ public class WebController
 	@Autowired
 	private MailService mailService;
 	
-	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@Autowired
@@ -104,6 +109,26 @@ public class WebController
 		}else {
 			return new ApiResponse(false, "Wrong Email !");
 		}
+	}
+	
+	
+	@PatchMapping("/user/updatePassword")
+	public ApiResponse updatePass(@RequestBody UpdatePasswordModel model)
+	{
+		Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		final User USER = (User)principle;
+		User user = userService.getUser(USER);
+		
+		if(passwordEncoder.encode(model.getOldPassword()).equals(user.getPassword()))
+		{
+			user.update(model);
+			
+			userService.updatePassword(user);
+			
+			return new ApiResponse(true,"Password Updated");
+		}
+		
+		return null;
 	}
 	
 }

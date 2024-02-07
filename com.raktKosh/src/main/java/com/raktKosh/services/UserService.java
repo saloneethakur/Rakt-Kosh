@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.raktKosh.entities.User;
+import com.raktKosh.model.UpdatePasswordModel;
 import com.raktKosh.repositories.UserRepo;
 
 
@@ -44,5 +45,17 @@ public class UserService implements UserDetailsService {
 	public void update(User user) {
 		userRepo.save(user);		
 	}
+
+	public User getUser(User user) 
+	{
+		return userRepo.findByUser(user).get();
+	}
+
+	public void updatePassword(User user) 
+	{
+		userRepo.save(user);
+	}
+	
+
 
 }

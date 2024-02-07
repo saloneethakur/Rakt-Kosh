@@ -3,7 +3,6 @@ package com.raktKosh.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.raktKosh.entities.BloodBank;
 import com.raktKosh.entities.Donor;
 import com.raktKosh.entities.User;
+import com.raktKosh.model.BloodBankUpdateModel;
 import com.raktKosh.model.DonorModel;
 import com.raktKosh.services.BloodBankService;
 import com.raktKosh.services.DonorService;
@@ -77,5 +77,26 @@ public class BloodBankController
 		
 		return new ApiResponse(true,"donor Records",list);
 	}
+	
+	@PatchMapping("/updateBank")
+	public ApiResponse updateBank(@RequestBody BloodBankUpdateModel model)
+	{
+		Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		final User USER = (User)principle;
+		
+		BloodBank bb = bloodbankService.getBankById(USER);
+		
+		if(bb == null)
+		{
+			return new ApiResponse(false,"BloodBank Not Found");
+		}
+		else
+		{
+			bb.updatebank(model);
+			bloodbankService.update(bb);
+			return new ApiResponse(true,"BloodBank Updated");
+		}
+	}
+	
 	
 }

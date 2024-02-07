@@ -1,10 +1,11 @@
 package com.raktKosh.entities;
 
-import java.time.LocalDate;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.raktKosh.model.BloodBankUpdateModel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,5 +62,13 @@ public class BloodBank {
 		this.user = user;
 	}
     
-    
+    public void updatebank(BloodBankUpdateModel model)
+    {
+    	if(model.getAddress() != null)
+    		this.address = model.getAddress();
+    	if(model.getPhone() != null)
+    		this.phone = model.getPhone();
+    	if(model.getActive_status() !=null)
+    		this.activeStatus = model.getActive_status();
+     }
 }
