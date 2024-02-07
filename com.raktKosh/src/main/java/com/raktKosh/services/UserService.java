@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
 
 	public User saveUser(String email, String password,String role) 
 	{
-		User user = new User(email, password, role, false);
+		User user = new User(email, password, role, true);
 		user = userRepo.save(user);
 		return user;
 	}

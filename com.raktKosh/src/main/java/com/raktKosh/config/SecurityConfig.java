@@ -51,6 +51,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests((requests) -> requests.requestMatchers("/", "/web/**").permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.requestMatchers("/bloodbank/**").hasAnyRole("ADMIN","BANK")
+						.requestMatchers("/donor/**").hasRole("DONOR")
 						.anyRequest().authenticated())
 				.exceptionHandling(t->t.accessDeniedPage("/web/accessDenied"))
 				.formLogin(t->{

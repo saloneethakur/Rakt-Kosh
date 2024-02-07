@@ -63,7 +63,7 @@ public class BloodBankService {
 		return bankrepo.findByUser(user).get();
 	}
 	
-public BloodBank assignDonorToBloodBank(Long bankId, Long donorId) {
+/*public BloodBank assignDonorToBloodBank(Long bankId, Long donorId) {
 		
 		Set<Donor> donorSet = null;
 		BloodBank bank = bankrepo.findById(bankId).get();
@@ -71,11 +71,12 @@ public BloodBank assignDonorToBloodBank(Long bankId, Long donorId) {
 		donorSet = bank.getDonors();
 		donorSet.add(donor);
 		bank.setDonors(donorSet);
+		
 		 bankrepo.save(bank);
 		 return bank;
 		
 		
-	}
+	}*/
 
 public List<BloodBank> listAll() {
 	return bankrepo.findAll();

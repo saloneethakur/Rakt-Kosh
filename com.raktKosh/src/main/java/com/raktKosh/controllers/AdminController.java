@@ -31,10 +31,10 @@ public class AdminController {
 	}
 	
 	@GetMapping("/list_banks")
-	public ApiResponse getPatientList() 
+	public ApiResponse getbankList() 
 	{
 		List<BloodBank> list = bankservice.listAll();
 		
-		return new ApiResponse(true,"Patient Records",list);
+		return new ApiResponse(true,"Bank Records",list);
 	}
 }

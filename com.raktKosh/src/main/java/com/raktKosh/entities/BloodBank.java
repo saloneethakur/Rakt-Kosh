@@ -48,6 +48,7 @@ public class BloodBank {
     @JsonIgnore
     private User user;
     
+    @JsonIgnore
     @ManyToMany(mappedBy="banks")
  	private Set<Donor> donors = new HashSet<Donor>();
 

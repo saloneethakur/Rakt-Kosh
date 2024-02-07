@@ -1,6 +1,7 @@
 package com.raktKosh.services;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,13 +61,32 @@ public class DonorService
 		return res;
 	}
 	
-	public Donor assignBloodBanktoDonor(Long donorId, Long bankId) {
-		Set<BloodBank> bankSet = null;
-		BloodBank bank = bankrepo.findById(bankId).get();
-		Donor donor = donorRepo.findById(donorId).get();
-		bankSet = donor.getBanks();
-		bankSet.add(bank);
-		donor.setBanks(bankSet);
-		return donorRepo.save(donor);
+	public ApiResponse assignBloodBanktoDonor(Long donorId, Long bankId) {
+		ApiResponse res = null; 
+		try
+		{
+			Set<BloodBank> bankSet = null;
+			BloodBank bank = bankrepo.findById(bankId).get();
+			Donor donor = donorRepo.findById(donorId).get();
+			bankSet = donor.getBanks();
+			bankSet.add(bank);
+			donor.setBanks(bankSet);
+			 donorRepo.save(donor);
+			 res= new ApiResponse(true,"Donor Saved",donor);
+		}
+		
+		catch(Exception e)
+		{
+			res= new ApiResponse(false,e.getMessage());
+		}
+		 return res;
+	}
+
+	public List<Donor> listAll() {
+		return donorRepo.findAll();
+	}
+
+	public Donor getDonorById(User USER) {
+		return donorRepo.findByUser(USER).get();
 	}
 }

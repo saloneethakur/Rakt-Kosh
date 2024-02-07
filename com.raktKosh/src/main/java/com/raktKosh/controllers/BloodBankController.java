@@ -1,5 +1,7 @@
 package com.raktKosh.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,20 +52,29 @@ public class BloodBankController
 		return new ApiResponse(true,"Blood Bank Details", bank);
 	}
 	
-	@PutMapping("/assign/{bankId}/donor/{donorId}")
-	private BloodBank assignDonorToBloodBank(@PathVariable Long bankId,@PathVariable Long donorId)
+	/*@PutMapping("/assign/{bankId}/donor/{donorId}")
+	public BloodBank assignDonorToBloodBank(@PathVariable Long bankId,@PathVariable Long donorId)
 	{
 		return bloodbankService.assignDonorToBloodBank(bankId,donorId);
+	}*/
+	
+	
+	@PutMapping("/{donorId}/bank")
+	public ApiResponse assignBloodBanktoDonor(@PathVariable (name="donorId") Long donorId)
+	{
+		Object priniciple = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		final User USER = (User)priniciple;
+	Long	bankId = USER.getUserId();
+		ApiResponse obj = donorService.assignBloodBanktoDonor(donorId,bankId);
+		 return new ApiResponse(true,"Blood Bank Details", obj);
 	}
 	
-	
-	
-	
-	
-	@PutMapping("/{donorId}/bank/{bankId}")
-	private Donor assignBloodBanktoDonor(@PathVariable Long donorId,@PathVariable Long bankId)
+	@GetMapping("/list_donor")
+	public ApiResponse getbankList() 
 	{
-		return donorService.assignBloodBanktoDonor(donorId,bankId);
+		List<Donor> list = donorService.listAll();
+		
+		return new ApiResponse(true,"donor Records",list);
 	}
 	
 }
