@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.raktKosh.entities.BloodBank;
 import com.raktKosh.entities.Donor;
 import com.raktKosh.entities.User;
+import com.raktKosh.model.BloodBankUpdateModel;
 import com.raktKosh.model.DonorModel;
 import com.raktKosh.services.BloodBankService;
 import com.raktKosh.services.DonorService;
@@ -78,4 +79,23 @@ public class BloodBankController
 		return new ApiResponse(true,"donor Records",list);
 	}
 	
+	
+	@PatchMapping("/updateBank")
+	public ApiResponse update(@RequestBody BloodBankUpdateModel model)
+	{
+		Object priniciple = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		final User USER = (User)priniciple;
+		BloodBank bank =  bloodbankService.getBankById(USER);
+		
+		if(bank==null)
+		{
+			return new ApiResponse(false,"BloodBank not Found");
+		}
+		else
+		{
+			bank.update(model);
+			bloodbankService.updateModel(bank);
+			return new ApiResponse(true,"Blood Bank Updated");
+		}
+	}
 }

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.raktKosh.model.BloodBankUpdateModel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -59,6 +60,18 @@ public class BloodBank {
 		this.phone = phone;
 		this.activeStatus = activeStatus;
 		this.user = user;
+	}
+
+	public void update(BloodBankUpdateModel model) 
+	{
+		if(model.getAddress() != null)
+			this.address = model.getAddress();
+		
+		if(model.getActive_status() != null)
+			this.activeStatus = model.getActive_status();
+		
+		if(model.getPhone() !=  null)
+			this.phone = model.getPhone();
 	}
     
     

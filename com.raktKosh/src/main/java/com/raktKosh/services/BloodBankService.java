@@ -82,5 +82,11 @@ public List<BloodBank> listAll() {
 	return bankrepo.findAll();
 }
 
+public void updateModel(BloodBank bank) 
+{
+
+	bankrepo.save(bank);
+}
+
 
 }
