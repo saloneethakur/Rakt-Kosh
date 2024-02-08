@@ -82,15 +82,5 @@ public List<BloodBank> listAll() {
 	return bankrepo.findAll();
 }
 
-public void update() 
-{
-	
-}
-
-public void update(BloodBank bb) 
-{
-	bankrepo.save(bb);
-}
-
 
 }

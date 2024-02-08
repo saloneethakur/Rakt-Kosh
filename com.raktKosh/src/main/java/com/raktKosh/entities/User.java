@@ -3,14 +3,11 @@ package com.raktKosh.entities;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.raktKosh.model.UpdatePasswordModel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,11 +32,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User implements UserDetails
 {
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-	
-	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 @Column(name = "user_id")
@@ -107,12 +99,6 @@ public class User implements UserDetails
 		this.activeStatus = activeStatus;
 	}
 
-
-	public void update(UpdatePasswordModel model) 
-	{
-		if(model.getNewPassword() != null)
-			this.password = passwordEncoder.encode(model.getNewPassword());
-	}
 	
 	
 }
