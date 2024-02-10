@@ -1,6 +1,7 @@
 package com.raktKosh.services;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -38,13 +39,14 @@ public class BloodBankService {
 	@Autowired
 	private  DonorRepo donorrepo;
 	
-	public  ApiResponse saveBank(BloodBankModel model) {
+	public  ApiResponse saveBank(BloodBankModel model )  {
 		ApiResponse response = null;
 		try {
 			
 			User user = userService.saveUser( model.getEmail(),passwordEncoder.encode(model.getPassword()),"ROLE_BANK");
 					
-			BloodBank obj = new BloodBank(model.getName(),model.getAddress(),model.getPhone(),false,user);
+			LocalDateTime today = LocalDateTime.now(); 
+			BloodBank obj = new BloodBank(model.getName(),model.getAddress(),model.getPhone(),false,user,today);
 			
 			bankrepo.save(obj);
 			

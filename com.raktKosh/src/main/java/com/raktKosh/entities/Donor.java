@@ -1,10 +1,12 @@
 package com.raktKosh.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,8 +18,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class Donor {
 	//Validation Remaining
 
     public Donor(String name, String phone, String address, String gender, LocalDate dob, String bloodGroup,
-			String aadharCard, LocalDate lastDonateDate, String type, User user,Boolean active_status) {
+			String aadharCard, LocalDate lastDonateDate, String type, User user,Boolean active_status,LocalDateTime reg) {
 		super();
 		this.name = name;
 		this.phone = phone;
@@ -44,8 +44,10 @@ public class Donor {
 		this.type = type;
 		this.user = user;
 		this.active_status = active_status;
+		this.RegDate = reg;
 	}
-
+    
+    @JsonIgnore
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "donor_id")
@@ -92,6 +94,11 @@ public class Donor {
     @Column (nullable = false)
     private Boolean active_status;
     
+    @Column(name = "Registration_Date",nullable = false )
+    @JsonFormat(pattern ="yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime RegDate;
+    
+
     
     @ManyToOne
     @JoinColumn(name = "user", nullable = false)

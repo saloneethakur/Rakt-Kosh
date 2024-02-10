@@ -1,6 +1,7 @@
 package com.raktKosh.services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -45,8 +46,8 @@ public class DonorService
 		{
 			User user = userService.saveUser(donor.getEmail(), passencoder.encode(donor.getPassword()),"ROLE_DONOR");
 			
-			
-			Donor dono = new Donor(donor.getName(),donor.getPhone(),donor.getAddress(),donor.getGender(),donor.getDob(),donor.getBloodGroup(),donor.getAadharCard(),donor.getLastDonateDate(), "BloodBank", user,false);
+			LocalDateTime today = LocalDateTime.now();
+			Donor dono = new Donor(donor.getName(),donor.getPhone(),donor.getAddress(),donor.getGender(),donor.getDob(),donor.getBloodGroup(),donor.getAadharCard(),donor.getLastDonateDate(), "BloodBank", user,false,today);
 			
 			donorRepo.save(dono);
 			

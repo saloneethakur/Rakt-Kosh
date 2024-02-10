@@ -1,9 +1,11 @@
 package com.raktKosh.entities;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.raktKosh.model.BloodBankUpdateModel;
 
@@ -26,7 +28,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "BloodBank")
 public class BloodBank {
-
+	
+	@JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bank_id")
@@ -53,13 +56,21 @@ public class BloodBank {
     @ManyToMany(mappedBy="banks")
  	private Set<Donor> donors = new HashSet<Donor>();
 
-	public BloodBank(String name, String address, String phone, boolean activeStatus, User user) {
+    @Column(name = "Registration_Date",nullable = false )
+    @JsonFormat(pattern ="yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime RegDate;
+    
+
+    
+    
+	public BloodBank(String name, String address, String phone, boolean activeStatus, User user,LocalDateTime RegDate) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.phone = phone;
 		this.activeStatus = activeStatus;
 		this.user = user;
+		this.RegDate = RegDate;
 	}
 
 	public void update(BloodBankUpdateModel model) 
