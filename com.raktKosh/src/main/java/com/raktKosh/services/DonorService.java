@@ -90,4 +90,9 @@ public class DonorService
 	public Donor getDonorById(User USER) {
 		return donorRepo.findByUser(USER).get();
 	}
+
+	public void updateModel(Donor donor) 
+	{
+		donorRepo.save(donor);
+	}
 }

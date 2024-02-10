@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.raktKosh.model.DonorUpdateModel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -87,7 +88,7 @@ public class Donor {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate lastDonateDate;
 
-    
+    @JsonIgnore
     @Column(nullable = false)
     private String type;
 
@@ -99,7 +100,7 @@ public class Donor {
     private LocalDateTime RegDate;
     
 
-    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user", nullable = false)
     private User user;
@@ -112,5 +113,17 @@ public class Donor {
     		@JoinColumn(name="bankId",referencedColumnName  ="bank_id")
     })
     private Set<BloodBank> banks = new HashSet<BloodBank>();
+
+	public void update(DonorUpdateModel model) 
+	{
+		if(model.getActive_status() != null)
+			this.active_status = model.getActive_status();
+		if(model.getAddress() != null)
+			this.address = model.getAddress();
+		if(model.getPhone() != null)
+			this.getPhone();
+		if(model.getLastDonateDate() != null)
+			this.lastDonateDate = model.getLastDonateDate();
+	}
 }
 

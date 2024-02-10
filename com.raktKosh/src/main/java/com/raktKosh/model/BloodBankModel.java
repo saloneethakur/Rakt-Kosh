@@ -1,10 +1,5 @@
 package com.raktKosh.model;
 
-import java.util.Set;
-
-import com.raktKosh.entities.Donor;
-import com.raktKosh.entities.User;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -18,14 +13,18 @@ public class BloodBankModel {
 
 	@NotEmpty
     private String name;
+	
 	@NotEmpty
     private String address;
-    @NotEmpty
+    
+	@NotEmpty
     private String phone;
-    @NotEmpty
+    
+	@NotEmpty
     @Email
     private String email;
-    @NotEmpty
+    
+	@NotEmpty
 	private String password;
 	
 }
