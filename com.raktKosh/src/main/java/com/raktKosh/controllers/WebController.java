@@ -1,32 +1,31 @@
 package com.raktKosh.controllers;
 
-import java.util.List;
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.raktKosh.config.JwtTokenUtil;
-import com.raktKosh.entities.Donor;
+import com.raktKosh.entities.BloodBank;
 import com.raktKosh.entities.User;
 import com.raktKosh.model.LoginModel;
 import com.raktKosh.model.LoginResponseModel;
-import com.raktKosh.services.BloodBankService;
-import com.raktKosh.services.DonorService;
+import com.raktKosh.model.PasswordUpdateModel;
 import com.raktKosh.services.MailService;
 import com.raktKosh.services.UserService;
 import com.raktKosh.utils.ApiResponse;
 
-import jakarta.validation.Valid;
 
 @RequestMapping("/web")
 @RestController
@@ -105,5 +104,7 @@ public class WebController
 			return new ApiResponse(false, "Wrong Email !");
 		}
 	}
-	
+
+
 }
+
